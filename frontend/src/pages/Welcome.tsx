@@ -32,7 +32,8 @@ const Welcome = () => {
 
   const fetchNotes = async () => {
     try {
-      const res = await axios.get('https://highway-delite-assignment-fn44.onrender.com/api/notes', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.get(`${apiUrl}/api/notes`, {
         headers: {
           token: token || '',
         },
@@ -50,7 +51,8 @@ const Welcome = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`https://highway-delite-assignment-fn44.onrender.com/api/notes/${id}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.delete(`${apiUrl}/api/notes/${id}`, {
         headers: {
           token: token || '',
         },
@@ -66,8 +68,9 @@ const Welcome = () => {
 
     try {
       setLoading(true);
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       const res = await axios.post(
-        'http://localhost:5000/api/notes',
+        `${apiUrl}/api/notes`,
         { title, content },
         {
           headers: {

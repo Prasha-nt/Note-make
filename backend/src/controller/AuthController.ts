@@ -84,3 +84,25 @@ export const resendOtp = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: 'Failed to resend OTP' });
   }
 };
+
+// ✅ Google OAuth Success Handler
+export const googleAuthSuccess = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const user = req.user as any;
+    
+    if (!user) {
+      res.redirect(`${process.env.CLIENT_URL || 'http://localhost:5173'}/?error=auth_failed`);
+      return;
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || '', {
+      expiresIn: '1d',
+    });
+
+    // Redirect to frontend with token
+    res.redirect(`${process.env.CLIENT_URL || 'http://localhost:5173'}/auth/success?token=${token}&name=${encodeURIComponent(user.name)}&email=${encodeURIComponent(user.email)}`);
+  } catch (error) {
+    console.error(error);
+    res.redirect(`${process.env.CLIENT_URL || 'http://localhost:5173'}/?error=auth_failed`);
+  }
+};

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Setup Instructions
 git clone https://github.com/AdarshBelnekar/Highway-Delite-Assignment/
 
@@ -47,3 +48,6 @@ Frontend runs at: http://localhost:5173
 
 
 
+=======
+# Note-make
+>>>>>>> 9f3c243f03b5403d12489164fe97024343688429
